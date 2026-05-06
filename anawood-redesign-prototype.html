@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anawood Redesign Prototype</title>
+  <style>
+    :root{
+      --bg:#fffdf9;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --brand:#c98f4a;
+      --brand-dark:#a87436;
+      --mint:#eaf7f1;
+      --card:#ffffff;
+      --line:#eee7de;
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;background:rgba(255,253,249,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20}
+    .nav{display:flex;justify-content:space-between;align-items:center;height:72px}
+    .logo{font-weight:800;letter-spacing:.5px}
+    .menu{display:flex;gap:20px;color:var(--muted);font-size:14px}
+    .btn{display:inline-block;background:var(--brand);color:#fff;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:600}
+    .btn:hover{background:var(--brand-dark)}
+
+    .hero{padding:56px 0}
+    .hero-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+    .chip{display:inline-block;background:var(--mint);padding:8px 12px;border-radius:999px;font-size:13px;color:#0f766e;font-weight:600}
+    h1{font-size:42px;line-height:1.15;margin:14px 0}
+    .lead{color:var(--muted);font-size:17px;line-height:1.7}
+    .hero-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+    .hero-card img{width:100%;border-radius:14px;height:360px;object-fit:cover}
+
+    section{padding:26px 0}
+    .section-title{font-size:28px;margin:0 0 8px}
+    .section-sub{color:var(--muted);margin:0 0 18px}
+
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
+    .card h3{margin:0 0 8px;font-size:18px}
+    .card p{margin:0;color:var(--muted);line-height:1.6}
+
+    .products{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .p{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .p img{width:100%;height:170px;object-fit:cover}
+    .p .body{padding:12px}
+    .p .name{font-weight:600;margin-bottom:6px}
+    .p .price{color:#b45309;font-weight:700}
+
+    .cta{background:linear-gradient(135deg,#fff6ea,#ecfdf5);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+    footer{padding:30px 0;color:var(--muted);font-size:14px}
+
+    @media(max-width:960px){
+      .hero-wrap{grid-template-columns:1fr}
+      .products{grid-template-columns:repeat(2,1fr)}
+      .grid-3{grid-template-columns:1fr}
+    }
+    @media(max-width:560px){
+      h1{font-size:31px}
+      .menu{display:none}
+      .products{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">ANAWOOD</div>
+      <nav class="menu">
+        <span>Sản phẩm</span><span>Phòng mẫu</span><span>Gỗ an toàn</span><span>Blog</span>
+      </nav>
+      <a class="btn" href="#">Tư vấn ngay</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div>
+          <span class="chip">Nội thất trẻ em chuẩn Montessori</span>
+          <h1>Thiết kế phòng bé <br/>an toàn, đẹp và tự lập hơn mỗi ngày</h1>
+          <p class="lead">Prototype redesign: bố cục gọn hơn, CTA rõ hơn, tối ưu chuyển đổi cho phụ huynh cần setup phòng bé nhanh.</p>
+          <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn" href="#">Nhận tư vấn set phòng</a>
+            <a class="btn" style="background:#fff;color:var(--brand);border:1px solid var(--brand)" href="#">Xem best seller</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <img src="https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg" alt="Giường trẻ em Anawood" />
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="section-title">Vì sao phụ huynh chọn Anawood</h2>
+        <p class="section-sub">Đưa USP lên đầu để tăng trust ngay khi vào trang.</p>
+        <div class="grid-3">
+          <article class="card"><h3>Bo góc an toàn</h3><p>Hạn chế va chạm cho bé khi vui chơi hằng ngày.</p></article>
+          <article class="card"><h3>Gỗ chuẩn an toàn</h3><p>Plywood đạt chuẩn, kiểm soát phát thải Formaldehyde.</p></article>
+          <article class="card"><h3>Thiết kế theo nhu cầu</h3><p>Nhận chỉnh kích thước phù hợp từng không gian phòng bé.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="section-title">Sản phẩm nổi bật</h2>
+        <p class="section-sub">Giữ số lượng vừa đủ để trang nhẹ, đỡ loãng.</p>
+        <div class="products">
+          <article class="p"><img src="https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg"/><div class="body"><div class="name">Giường trẻ em EB091</div><div class="price">8.950.000 ₫</div></div></article>
+          <article class="p"><img src="https://anawood.vn/wp-content/uploads/2026/03/643909371_1457644926372275_7298630659536648935_n.jpg"/><div class="body"><div class="name">Giường tầng đa năng</div><div class="price">24.500.000 ₫</div></div></article>
+          <article class="p"><img src="https://anawood.vn/wp-content/uploads/2026/03/z7673352958579_d7ca4d0a6573216624caa84cbf8ea87c.jpg"/><div class="body"><div class="name">Thang Pikler + Cầu trượt</div><div class="price">3.250.000 ₫</div></div></article>
+          <article class="p"><img src="https://anawood.vn/wp-content/uploads/2026/03/z7673352307198_7729f2b34dc49292c327871883ce3ec1.jpg"/><div class="body"><div class="name">Tháp hỗ trợ bé</div><div class="price">1.950.000 ₫</div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container cta">
+        <div>
+          <h3 style="margin:0 0 8px">Muốn Neo dựng luôn bản Product Page mới không?</h3>
+          <p style="margin:0;color:var(--muted)">Mình có thể làm luôn bản trang chi tiết sản phẩm tối ưu conversion.</p>
+        </div>
+        <a class="btn" href="#">Làm tiếp Product Page</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Prototype by Neo 🤖 · chỉ để demo concept UI/UX, chưa tích hợp WordPress/WooCommerce.</div>
+  </footer>
+</body>
+</html>

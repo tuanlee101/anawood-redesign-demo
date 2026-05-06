@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anawood – Giường trẻ em EB091 (Redesign)</title>
+  <style>
+    /* ── Reset & Variables ── */
+    :root{
+      --brand:#c98f4a;
+      --brand-dark:#a87436;
+      --bg:#fffdf9;
+      --text:#1a1a2e;
+      --muted:#6b7280;
+      --line:#eee7de;
+      --mint:#eaf7f1;
+      --radius:14px;
+      --max-w:1100px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, system-ui, -apple-system, sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .container{max-width:var(--max-w);margin:0 auto;padding:0 16px}
+
+    /* ── Mobile-optimized Header ── */
+    header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+    .nav{display:flex;justify-content:space-between;align-items:center;height:60px}
+    .logo{font-weight:800;letter-spacing:.4px;font-size:18px}
+    .nav-right{display:flex;gap:12px;align-items:center}
+    .nav-right span{font-size:20px;cursor:pointer}
+    .nav-right a{color:var(--brand);font-weight:600;font-size:14px;text-decoration:none;background:var(--mint);padding:6px 12px;border-radius:999px}
+
+    /* ── Breadcrumb ── */
+    .breadcrumb{font-size:13px;color:var(--muted);padding:12px 0;display:flex;gap:6px;flex-wrap:wrap}
+    .breadcrumb a{color:var(--brand);text-decoration:none}
+
+    /* ── Product Gallery ── */
+    .product{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding-bottom:24px}
+    .gallery{position:relative}
+    .gallery .main-img{width:100%;border-radius:var(--radius);object-fit:cover;height:auto;aspect-ratio:4/3}
+    .gallery .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+    .gallery .thumbs img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;cursor:pointer;border:2px solid transparent}
+    .gallery .thumbs img.active{border-color:var(--brand)}
+    .badge{position:absolute;top:12px;left:12px;background:var(--mint);color:#0f766e;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+
+    /* ── Product Info ── */
+    .info .chip{display:inline-block;background:var(--mint);padding:4px 10px;border-radius:999px;font-size:12px;color:#0f766e;font-weight:600;margin-bottom:10px}
+    .info h1{font-size:28px;margin:0 0 6px;line-height:1.3}
+    .info .rating{margin:6px 0;color:#f59e0b;font-size:14px;display:flex;align-items:center;gap:6px}
+    .info .price{font-size:30px;font-weight:800;color:#b45309;margin:10px 0}
+    .info .price small{font-size:14px;color:var(--muted);font-weight:400;text-decoration:line-through;margin-left:8px}
+    .info .desc{color:var(--muted);font-size:15px;margin:0 0 16px}
+
+    /* ── Variants ── */
+    .variants{margin:16px 0}
+    .variants label{display:block;font-size:14px;font-weight:600;margin-bottom:8px}
+    .var-opt{display:flex;gap:10px;flex-wrap:wrap}
+    .var-opt .opt{padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:14px;cursor:pointer;background:#fff}
+    .var-opt .opt.active{border-color:var(--brand);background:var(--brand);color:#fff}
+    .var-opt .opt:hover{border-color:var(--brand)}
+
+    /* ── CTA Block ── */
+    .cta-group{display:flex;gap:10px;margin:18px 0}
+    .cta-group .btn{padding:14px 0;border:none;border-radius:12px;font-weight:700;font-size:16px;cursor:pointer;text-align:center;flex:1;text-decoration:none;display:inline-block}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-primary:hover{background:var(--brand-dark)}
+    .btn-outline{background:#fff;color:var(--brand);border:1.5px solid var(--brand)!important;border-style:solid}
+    .btn-zalo{background:#0068ff;color:#fff;display:flex;align-items:center;justify-content:center;gap:6px}
+
+    /* ── Accordion (details) mobile-friendly ── */
+    .accordion{margin-top:20px}
+    .acc-item{border-bottom:1px solid var(--line)}
+    .acc-header{display:flex;justify-content:space-between;padding:16px 0;cursor:pointer;font-weight:600;font-size:15px}
+    .acc-icon{transition:transform .25s}
+    .acc-item.open .acc-icon{transform:rotate(45deg)}
+    .acc-body{padding:0 0 16px;color:var(--muted);font-size:14px;display:none}
+    .acc-item.open .acc-body{display:block}
+
+    /* ── Features Grid ── */
+    .features{margin:24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+    .features .f{padding:12px;background:var(--mint);border-radius:12px;text-align:center;font-size:13px;font-weight:600}
+    .features .f span{display:block;font-size:22px;margin-bottom:4px}
+
+    /* ── Trust Banner ── */
+    .trust-banner{background:var(--mint);border-radius:var(--radius);padding:16px;margin:20px 0;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+    .trust-banner .t{display:flex;align-items:center;gap:6px;font-size:13px;color:#0f766e}
+    .trust-banner .t span{font-size:18px}
+
+    /* ── Sticky Mobile CTA Bottom ── */
+    .sticky-bottom{display:none}
+    @media(max-width:767px){
+      .sticky-bottom{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;padding:10px 16px;gap:8px;border-top:1px solid var(--line);z-index:99}
+      .sticky-bottom .btn{flex:1;padding:12px;border-radius:10px;font-weight:700;border:none;font-size:14px;cursor:pointer;text-align:center;text-decoration:none}
+      body{padding-bottom:70px}
+    }
+
+    /* ── Mobile Responsive ── */
+    @media(max-width:900px){
+      .product{grid-template-columns:1fr;gap:16px}
+      .info h1{font-size:24px}
+      .info .price{font-size:26px}
+      .cta-group{flex-direction:column}
+      .cta-group .btn{width:100%}
+    }
+
+    /* ── Footer ── */
+    footer{padding:20px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">ANAWOOD</div>
+      <div class="nav-right">
+        <a href="#">Gọi tư vấn</a>
+        <span>🔍</span>
+        <span>🛒</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="#">Trang chủ</a> / <a href="#">Giường trẻ em</a> / <span>Giường trẻ em EB091</span>
+    </nav>
+
+    <div class="product">
+      <!-- Gallery -->
+      <div class="gallery">
+        <span class="badge">🔥 Bán chạy</span>
+        <img class="main-img" src="https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg" alt="Giường EB091" id="mainImg" />
+        <div class="thumbs">
+          <img src="https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg" class="active" onclick="changeImg(this)" />
+          <img src="https://anawood.vn/wp-content/uploads/2026/03/643909371_1457644926372275_7298630659536648935_n.jpg" onclick="changeImg(this)" />
+          <img src="https://anawood.vn/wp-content/uploads/2026/03/z7673352958579_d7ca4d0a6573216624caa84cbf8ea87c.jpg" onclick="changeImg(this)" />
+          <img src="https://anawood.vn/wp-content/uploads/2026/03/z7673352307198_7729f2b34dc49292c327871883ce3ec1.jpg" onclick="changeImg(this)" />
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="info">
+        <span class="chip">🌿 Gỗ an toàn chuẩn E0</span>
+        <h1>Giường trẻ em EB091</h1>
+        <div class="rating">★★★★★ <span style="color:var(--muted)">(12 đánh giá)</span></div>
+        <div class="price">8.950.000 ₫ <small>12.500.000 ₫</small></div>
+        <p class="desc">Thiết kế Hàn Quốc, chiều cao thấp an toàn, bo góc tỉ mỉ. Có thể lắp/ bỏ thành giường khi bé lớn.</p>
+
+        <!-- Variant -->
+        <div class="variants">
+          <label>Màu sắc</label>
+          <div class="var-opt">
+            <span class="opt active">Gỗ tự nhiên</span>
+            <span class="opt">Trắng melamine</span>
+          </div>
+        </div>
+        <div class="variants">
+          <label>Kích thước</label>
+          <div class="var-opt">
+            <span class="opt active">120x200cm</span>
+            <span class="opt">Theo yêu cầu</span>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-group">
+          <a href="#" class="btn btn-primary">🛒 Thêm vào giỏ</a>
+          <a href="#" class="btn btn-zalo">💬 Mua qua Zalo</a>
+        </div>
+        <div class="cta-group">
+          <a href="#" class="btn btn-outline">📐 Nhận tư vấn kích thước</a>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="trust-banner">
+          <div class="t"><span>🚚</span> Miễn phí ship toàn quốc</div>
+          <div class="t"><span>🛡️</span> Bảo hành 24 tháng</div>
+          <div class="t"><span>🔄</span> Đổi trả 7 ngày</div>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+          <div class="f"><span>🟢</span>Gỗ Plywood FSC</div>
+          <div class="f"><span>🟢</span>Bo góc an toàn</div>
+          <div class="f"><span>🟢</span>Sơn gốc nước</div>
+          <div class="f"><span>🟢</span>Tiêu chuẩn E0</div>
+        </div>
+
+        <!-- Accordion -->
+        <div class="accordion">
+          <div class="acc-item open">
+            <div class="acc-header">Mô tả sản phẩm <span class="acc-icon">+</span></div>
+            <div class="acc-body">
+              <p>Thiết kế đơn giản, nhẹ nhàng phong cách Hàn Quốc. Chiều cao giường thấp, an toàn cho nhiều độ tuổi. Có thể lắp thành giường 2 bên cho trẻ dưới 5 tuổi, hoặc bỏ thành khi bé lớn.</p>
+              <ul>
+                <li>Kích thước: 120x200cm (có thể yêu cầu kích thước khác)</li>
+                <li>Độ tuổi: trên 2 tuổi</li>
+                <li>Giá đã bao gồm phí vận chuyển</li>
+                <li>Giá chưa bao gồm đệm</li>
+              </ul>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">Chất liệu & An toàn <span class="acc-icon">+</span></div>
+            <div class="acc-body">
+              <p>✅ Gỗ Plywood nhập khẩu, đạt chứng nhận FSC<br/>✅ Tiêu chuẩn CARB P2 (tương đương E0)<br/>✅ Sơn gốc nước, an toàn cho trẻ<br/>✅ Bo góc tròn mềm mại</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">Chính sách giao hàng & Bảo hành <span class="acc-icon">+</span></div>
+            <div class="acc-body">
+              <p>🚚 Miễn phí vận chuyển toàn quốc<br/>🛠️ Phí lắp đặt: báo riêng theo khu vực<br/>🛡️ Bảo hành 24 tháng<br/>📦 Sản phẩm tháo rời, đóng thùng gọn, dễ lắp ráp</p>
+            </div>
+          </div>
+          <div class="acc-item">
+            <div class="acc-header">Đánh giá khách hàng <span class="acc-icon">+</span></div>
+            <div class="acc-body">
+              <p>⭐ "Chất lượng gỗ rất tốt, đóng gói kỹ. Bé nhà mình rất thích chiếc giường này!" – <strong>Chị Minh (Hà Nội)</strong></p>
+              <p>⭐ "Thiết kế đẹp, an toàn, giao hàng nhanh. Sẽ ủng hộ Anawood tiếp." – <strong>Anh Tuấn (TP.HCM)</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Mobile Bottom CTA -->
+  <div class="sticky-bottom">
+    <a href="#" class="btn btn-outline" style="background:var(--brand);color:#fff;border:none">🛒 Thêm vào giỏ</a>
+    <a href="#" class="btn" style="background:#0068ff;color:#fff">💬 Zalo</a>
+  </div>
+
+  <footer>
+    <div class="container">Prototype Product Page by Neo 🤖 · Redesign concept cho Anawood · Mobile-first</div>
+  </footer>
+
+  <script>
+    function changeImg(el) {
+      document.getElementById('mainImg').src = el.src;
+      document.querySelectorAll('.thumbs img').forEach(i => i.classList.remove('active'));
+      el.classList.add('active');
+    }
+    document.querySelectorAll('.acc-header').forEach(h => {
+      h.addEventListener('click', () => {
+        const item = h.parentElement;
+        item.classList.toggle('open');
+      });
+    });
+    document.querySelectorAll('.opt').forEach(o => {
+      o.addEventListener('click', () => {
+        o.parentElement.querySelectorAll('.opt').forEach(p => p.classList.remove('active'));
+        o.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
