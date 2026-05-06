@@ -3,272 +3,170 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anawood – Nội thất trẻ em Montessori | Redesign</title>
-  <style>
-    /* ── Theme System ── */
-    [data-theme="light"]{
-      --bg:#fffdf9; --text:#1f2937; --muted:#6b7280;
-      --brand:#c98f4a; --brand-dark:#a87436; --brand-light:#f5e6d0;
-      --mint:#eaf7f1; --card:#ffffff; --line:#eee7de;
-      --radius:12px; --radius-lg:20px;
-    }
-    [data-theme="dark"]{
-      --bg:#0f0f1a; --text:#e2e8f0; --muted:#94a3b8;
-      --brand:#d4a05a; --brand-dark:#c98f4a; --brand-light:#2d2215;
-      --mint:#1a2e2a; --card:#1a1a2e; --line:#2d2d44;
-      --radius:12px; --radius-lg:20px;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s}
-    .container{max-width:1200px;margin:0 auto;padding:0 40px}
-
-    /* ── Header ── */
-    header{background:rgba(255,253,249,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;transition:.3s}
-    [data-theme="dark"] header{background:rgba(15,15,26,.95)}
-    .nav{display:flex;justify-content:space-between;align-items:center;height:80px}
-    .logo{font-weight:800;font-size:22px;letter-spacing:.5px}
-    .menu{display:flex;gap:28px;color:var(--muted);font-size:15px;font-weight:500}
-    .menu span{cursor:pointer;transition:color .2s;position:relative}
-    .menu span:hover{color:var(--brand)}
-    .menu span.active{color:var(--text);font-weight:600}
-    .nav-right{display:flex;gap:12px;align-items:center}
-    .theme-toggle{background:var(--mint);border:none;border-radius:999px;width:42px;height:42px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:.3s}
-    .theme-toggle:hover{transform:scale(1.08)}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:15px;transition:.25s;cursor:pointer;border:none}
-    .btn-primary{background:var(--brand);color:#fff}
-    .btn-primary:hover{background:var(--brand-dark);transform:translateY(-1px)}
-    .btn-outline{background:transparent;color:var(--brand);border:2px solid var(--brand)}
-    .btn-outline:hover{background:var(--brand-light)}
-    .btn-white{background:#fff;color:var(--text);border:1px solid var(--line)}
-    .btn-white:hover{background:var(--mint)}
-
-    /* ── Hero ── */
-    .hero{padding:80px 0 60px}
-    .hero-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:center}
-    .hero-left .chip{display:inline-block;background:var(--mint);padding:8px 16px;border-radius:999px;font-size:13px;color:#0f766e;font-weight:600;margin-bottom:16px}
-    .hero-left h1{font-size:52px;line-height:1.12;margin:0 0 16px;font-weight:800}
-    .hero-left .lead{font-size:18px;color:var(--muted);line-height:1.7;max-width:500px;margin:0 0 28px}
-    .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
-    .hero-right{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:12px;box-shadow:0 12px 40px rgba(0,0,0,.06);transition:.3s}
-    .hero-right img{width:100%;border-radius:16px;height:440px;object-fit:cover;display:block}
-    .hero-stats{display:flex;gap:40px;margin-top:32px;padding-top:28px;border-top:1px solid var(--line)}
-    .hero-stats .stat{font-size:13px;color:var(--muted)}
-    .hero-stats .stat strong{display:block;font-size:26px;color:var(--text);margin-bottom:2px}
-
-    /* ── Trust Strip ── */
-    .trust-strip{display:flex;justify-content:center;gap:50px;padding:20px 0;background:var(--mint);border-radius:var(--radius-lg);margin:0 auto 60px;max-width:900px}
-    .trust-item{display:flex;align-items:center;gap:10px;font-size:14px;color:#0f766e;font-weight:500}
-    .trust-item span{font-size:22px}
-
-    /* ── Section ── */
-    .section-label{display:inline-block;text-transform:uppercase;letter-spacing:2px;font-size:12px;color:var(--brand);font-weight:700;margin-bottom:6px}
-    section{padding:64px 0}
-    .section-title{font-size:36px;margin:0 0 12px;font-weight:800}
-    .section-sub{color:var(--muted);font-size:16px;max-width:580px;margin:0 0 36px;line-height:1.6}
-
-    /* ── Features Grid ── */
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .feature-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px;transition:.25s;transition:.3s}
-    .feature-card:hover{border-color:var(--brand);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
-    .feature-card .icon{font-size:32px;margin-bottom:12px;display:block}
-    .feature-card h3{font-size:19px;margin:0 0 8px}
-    .feature-card p{margin:0;color:var(--muted);line-height:1.6;font-size:15px}
-
-    /* ── Products ── */
-    .products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-    .p-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:.25s;transition:.3s}
-    .p-card:hover{border-color:var(--brand);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.07)}
-    .p-card img{width:100%;height:220px;object-fit:cover;display:block}
-    .p-body{padding:16px 18px 18px}
-    .p-body .tag{font-size:11px;color:var(--brand);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-    .p-body .name{font-weight:600;font-size:16px;margin-bottom:6px}
-    .p-body .price{color:#b45309;font-weight:700;font-size:18px}
-    .p-body .old-price{color:var(--muted);text-decoration:line-through;font-size:13px;margin-left:6px;font-weight:400}
-
-    /* ── CTA Banner ── */
-    .cta-banner{background:linear-gradient(135deg,var(--brand-light),var(--mint));border:1px solid var(--line);border-radius:var(--radius-lg);padding:40px 48px;display:flex;justify-content:space-between;align-items:center;gap:30px;transition:.3s}
-    .cta-banner h3{font-size:26px;margin:0 0 6px}
-    .cta-banner p{margin:0;color:var(--muted);font-size:15px}
-
-    /* ── Footer ── */
-    footer{padding:32px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-    footer a{color:var(--brand);text-decoration:none}
-
-    /* ── Responsive ── */
-    @media(max-width:1024px){
-      .products{grid-template-columns:repeat(2,1fr)}
-    }
-    @media(max-width:900px){
-      .container{padding:0 20px}
-      .hero-wrap{grid-template-columns:1fr;gap:30px}
-      .hero-left h1{font-size:36px}
-      .hero-stats{display:none}
-      .grid-3{grid-template-columns:1fr}
-      .cta-banner{flex-direction:column;text-align:center;padding:28px}
-    }
-    @media(max-width:640px){
-      .menu{display:none}
-      .hero-left h1{font-size:30px}
-      .products{grid-template-columns:1fr}
-      .trust-strip{flex-direction:column;align-items:center;gap:12px;padding:16px;max-width:100%}
-      section{padding:40px 0}
-      footer{flex-direction:column;gap:8px;text-align:center}
-    }
-  </style>
+  <title>Anawood – Nội thất trẻ em Montessori</title>
+  <link rel="stylesheet" href="anawood-system.css" />
 </head>
 <body>
-  <header>
+  <!-- HEADER (shared via CSS) -->
+  <header class="site-header">
     <div class="container nav">
-      <div class="logo">ANAWOOD</div>
-      <nav class="menu">
-        <span class="active">Trang chủ</span>
-        <span>Sản phẩm</span>
-        <span>Phòng mẫu</span>
-        <span>Gỗ an toàn</span>
-        <span>Blog</span>
-        <span>Liên hệ</span>
+      <a href="index.html" class="logo">ANAWOOD</a>
+      <nav class="nav-menu">
+        <a href="index.html" class="active">Trang chủ</a>
+        <a href="anawood-product-page.html">Sản phẩm</a>
+        <a href="anawood-cart-checkout.html">Giỏ hàng</a>
       </nav>
-      <div class="nav-right">
-        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
-        <a class="btn btn-primary" href="anawood-cart-checkout.html">🛒 Giỏ hàng</a>
+      <div class="nav-actions">
+        <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container hero-wrap">
-      <div class="hero-left">
-        <span class="chip">🌿 Nội thất trẻ em chuẩn Montessori</span>
-        <h1>Nội thất gỗ an toàn<br/>cho không gian bé<br/>tự lập mỗi ngày</h1>
-        <p class="lead">Thiết kế theo phương pháp Montessori, sử dụng gỗ plywood nhập khẩu đạt chuẩn E0, bo góc tỉ mỉ, an toàn tuyệt đối cho trẻ.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#">📞 Nhận tư vấn ngay</a>
-          <a class="btn btn-outline" href="anawood-product-page.html">Xem bộ sưu tập</a>
+  <main class="main fade-in">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <span class="chip">🌿 Nội thất Montessori chuẩn an toàn</span>
+          <h1 class="hero-title">Nội thất gỗ <span class="highlight">an toàn</span><br/>cho bé <span class="highlight">tự lập</span> mỗi ngày</h1>
+          <p class="hero-desc">Gỗ plywood nhập khẩu chuẩn E0 – Bo góc tỉ mỉ – Sơn gốc nước an toàn. Thiết kế theo phương pháp giáo dục Montessori, khuyến khích bé tự lập ngay từ những năm đầu đời.</p>
+          <div class="hero-actions">
+            <a href="anawood-product-page.html" class="btn btn-primary pulse">📦 Khám phá sản phẩm</a>
+            <a href="anawood-cart-checkout.html" class="btn btn-outline">🛒 Mua ngay</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>10.000+</strong>Khách hàng</div>
+            <div class="stat"><strong>24 tháng</strong>Bảo hành</div>
+            <div class="stat"><strong>99%</strong>Hài lòng</div>
+          </div>
         </div>
-        <div class="hero-stats">
-          <div class="stat"><strong>10.000+</strong>Khách hàng tin dùng</div>
-          <div class="stat"><strong>24 tháng</strong>Bảo hành sản phẩm</div>
-          <div class="stat"><strong>99%</strong>Phản hồi hài lòng</div>
+        <div class="hero-visual">
+          <div class="hero-img-wrap">
+            <img src="https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg" alt="Giường trẻ em Anawood" />
+          </div>
         </div>
       </div>
-      <div class="hero-right">
-        <img src="https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg" alt="Anawood nội thất trẻ em">
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Trust Strip -->
-  <div class="container">
-    <div class="trust-strip">
-      <div class="trust-item"><span>🚚</span> Giao hàng miễn phí toàn quốc</div>
-      <div class="trust-item"><span>🛡️</span> Bảo hành 24 tháng</div>
-      <div class="trust-item"><span>🔄</span> Đổi trả trong 7 ngày</div>
-      <div class="trust-item"><span>🌿</span> Gỗ FSC – Thân thiện môi trường</div>
-    </div>
-  </div>
-
-  <!-- Why Anawood -->
-  <section>
+    <!-- Trust Strip -->
     <div class="container">
-      <span class="section-label">Lý do lựa chọn</span>
-      <h2 class="section-title">Vì sao phụ huynh chọn Anawood?</h2>
-      <p class="section-sub">Chúng tôi đặt sự an toàn và phát triển của trẻ lên hàng đầu, từ chất liệu đến từng chi tiết thiết kế.</p>
-      <div class="grid-3">
-        <div class="feature-card">
-          <span class="icon">🔰</span>
-          <h3>Gỗ plywood chuẩn E0</h3>
-          <p>Đạt chứng nhận FSC & CARB P2, kiểm soát phát thải Formaldehyde ở mức thấp nhất, an toàn tuyệt đối cho bé.</p>
-        </div>
-        <div class="feature-card">
-          <span class="icon">🟣</span>
-          <h3>Bo góc & bề mặt mịn</h3>
-          <p>Mọi cạnh góc đều được bo tròn tỉ mỉ, bề mặt mịn, không xước tay — hạn chế tuyệt đối va chạm cho trẻ nhỏ.</p>
-        </div>
-        <div class="feature-card">
-          <span class="icon">🎨</span>
-          <h3>Sơn gốc nước an toàn</h3>
-          <p>Sơn đạt tiêu chuẩn FDA Hoa Kỳ, không chứa hóa chất độc hại, thân thiện với làn da nhạy cảm của bé.</p>
-        </div>
+      <div class="trust-strip slide-up">
+        <div class="trust-item"><span>🚚</span> Giao hàng miễn phí toàn quốc</div>
+        <div class="trust-item"><span>🛡️</span> Bảo hành 24 tháng</div>
+        <div class="trust-item"><span>🔄</span> Đổi trả trong 7 ngày</div>
+        <div class="trust-item"><span>🌿</span> Gỗ FSC thân thiện</div>
       </div>
     </div>
-  </section>
 
-  <!-- Featured Products -->
-  <section>
-    <div class="container">
-      <span class="section-label">Sản phẩm nổi bật</span>
-      <h2 class="section-title">Best-seller được yêu thích nhất</h2>
-      <p class="section-sub">Những sản phẩm được hàng nghìn phụ huynh tin chọn cho phòng bé yêu.</p>
-      <div class="products">
-        <a class="p-card" href="anawood-product-page.html" style="text-decoration:none;color:inherit">
-          <img src="https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg" alt="Giường EB091">
-          <div class="p-body">
-            <div class="tag">🔥 Bán chạy</div>
-            <div class="name">Giường trẻ em EB091</div>
-            <div class="price">8.950.000 ₫ <span class="old-price">12.500.000 ₫</span></div>
-          </div>
-        </a>
-        <div class="p-card">
-          <img src="https://anawood.vn/wp-content/uploads/2026/03/643909371_1457644926372275_7298630659536648935_n.jpg" alt="Giường tầng đa năng">
-          <div class="p-body">
-            <div class="tag">⭐ Phổ biến</div>
-            <div class="name">Giường tầng đa năng EB090</div>
-            <div class="price">27.950.000 ₫</div>
-          </div>
+    <!-- USPs -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-label">VÌ SAO CHỌN ANAWOOD</span>
+          <h2 class="section-title">Ba mẹ tin dùng bởi</h2>
         </div>
-        <div class="p-card">
-          <img src="https://anawood.vn/wp-content/uploads/2026/03/z7673352958579_d7ca4d0a6573216624caa84cbf8ea87c.jpg" alt="Thang Pikler">
-          <div class="p-body">
-            <div class="tag">🌿 Montessori</div>
-            <div class="name">Thang Pikler + Cầu trượt</div>
-            <div class="price">3.250.000 ₫</div>
+        <div class="features-grid">
+          <div class="feature-card fade-in">
+            <div class="fc-icon">🟢</div>
+            <h3>Gỗ plywood chuẩn E0</h3>
+            <p>Đạt chứng nhận FSC & CARB P2, kiểm soát Formaldehyde ở mức thấp nhất.</p>
           </div>
-        </div>
-        <div class="p-card">
-          <img src="https://anawood.vn/wp-content/uploads/2026/03/z7673352307198_7729f2b34dc49292c327871883ce3ec1.jpg" alt="Tháp hỗ trợ">
-          <div class="p-body">
-            <div class="tag">🌿 Montessori</div>
-            <div class="name">Tháp hỗ trợ EC005</div>
-            <div class="price">1.950.000 ₫</div>
+          <div class="feature-card fade-in">
+            <div class="fc-icon">🔵</div>
+            <h3>Bo góc an toàn</h3>
+            <p>Mọi góc cạnh đều được bo tròn tỉ mỉ, hạn chế va chạm khi bé vui chơi.</p>
+          </div>
+          <div class="feature-card fade-in">
+            <div class="fc-icon">🟣</div>
+            <h3>Sơn gốc nước</h3>
+            <p>Đạt tiêu chuẩn FDA Hoa Kỳ, không hóa chất độc hại, thân thiện với làn da bé.</p>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Featured in VTV3 -->
-  <section>
-    <div class="container">
-      <div class="cta-banner">
-        <div>
-          <span class="section-label">PHÁT SÓNG TRÊN VTV3</span>
-          <h3>📺 Đài truyền hình Việt Nam tin chọn</h3>
-          <p>VTV3 đã phối hợp cùng Anawood tư vấn sắp xếp phòng theo phong cách Montessori cho hàng nghìn gia đình Việt.</p>
+    <!-- Products -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-label">SẢN PHẨM NỔI BẬT</span>
+          <h2 class="section-title">Best-seller được yêu thích</h2>
         </div>
-        <a class="btn btn-primary" href="#">Xem chi tiết →</a>
+        <div class="products-grid">
+          <a href="anawood-product-page.html" class="product-card fade-in">
+            <img src="https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg" alt="Giường EB091" />
+            <div class="pc-body">
+              <span class="pc-tag">🔥 Bán chạy</span>
+              <strong>Giường trẻ em EB091</strong>
+              <div class="pc-price">8.950.000 ₫</div>
+            </div>
+          </a>
+          <div class="product-card fade-in">
+            <img src="https://anawood.vn/wp-content/uploads/2026/03/643909371_1457644926372275_7298630659536648935_n.jpg" alt="Giường tầng" />
+            <div class="pc-body">
+              <span class="pc-tag">⭐ Phổ biến</span>
+              <strong>Giường tầng đa năng</strong>
+              <div class="pc-price">27.950.000 ₫</div>
+            </div>
+          </div>
+          <div class="product-card fade-in">
+            <img src="https://anawood.vn/wp-content/uploads/2026/03/z7673352958579_d7ca4d0a6573216624caa84cbf8ea87c.jpg" alt="Thang Pikler" />
+            <div class="pc-body">
+              <span class="pc-tag">🌿 Montessori</span>
+              <strong>Thang Pikler + Cầu trượt</strong>
+              <div class="pc-price">3.250.000 ₫</div>
+            </div>
+          </div>
+          <div class="product-card fade-in">
+            <img src="https://anawood.vn/wp-content/uploads/2026/03/z7673352307198_7729f2b34dc49292c327871883ce3ec1.jpg" alt="Tháp hỗ trợ" />
+            <div class="pc-body">
+              <span class="pc-tag">🌿 Montessori</span>
+              <strong>Tháp hỗ trợ EC005</strong>
+              <div class="pc-price">1.950.000 ₫</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-banner slide-up">
+          <div>
+            <span class="section-label">📺 PHÁT SÓNG VTV3</span>
+            <h3>Đài truyền hình Việt Nam tin chọn Anawood</h3>
+            <p>VTV3 phối hợp cùng Anawood tư vấn sắp xếp phòng Montessori cho hàng nghìn gia đình.</p>
+          </div>
+          <a href="anawood-product-page.html" class="btn btn-primary">Xem chi tiết →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flow Nav -->
+    <section class="section">
+      <div class="container">
+        <div class="flow-nav">
+          <a href="anawood-product-page.html" class="flow-card">📦 Sản phẩm <small>→</small></a>
+          <a href="anawood-cart-checkout.html" class="flow-card">🛒 Giỏ hàng <small>→</small></a>
+          <a href="anawood-order-confirmation.html" class="flow-card">✅ Xác nhận <small>→</small></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Prototype by Neo 🤖 · Full flow e-commerce · Redesign concept cho Anawood</span>
+      <div class="footer-links">
+        <a href="anawood-redesign-prototype.html">🏠 Home</a>
+        <a href="anawood-product-page.html">📦 Product</a>
+        <a href="anawood-cart-checkout.html">🛒 Cart</a>
+        <a href="anawood-order-confirmation.html">✅ Thank You</a>
       </div>
     </div>
-  </section>
-
-  <footer>
-    <div>Prototype by Neo 🤖 · Giao diện Desktop · Redesign concept cho Anawood</div>
-    <div><a href="anawood-product-page.html">📦 Product Page</a> · <a href="anawood-cart-checkout.html">🛒 Cart/Checkout</a></div>
   </footer>
 
-  <script>
-    function toggleTheme(){
-      const html = document.documentElement;
-      const cur = html.getAttribute('data-theme');
-      const next = cur === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', next);
-      document.getElementById('themeBtn').textContent = next === 'light' ? '🌙' : '☀️';
-      localStorage.setItem('anawood-theme', next);
-    }
-    (function(){
-      const s = localStorage.getItem('anawood-theme');
-      if(s) document.documentElement.setAttribute('data-theme', s);
-    })();
-  </script>
+  <script src="anawood-system.js"></script>
 </body>
 </html>

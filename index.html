@@ -1,20 +1,87 @@
 <!doctype html>
-<html lang="vi">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Anawood Redesign Demo</title>
-<style>body{margin:0;font-family:Inter,system-ui,sans-serif;background:linear-gradient(135deg,#faf5ef,#f0fdf4);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}.card{background:#fff;border-radius:20px;padding:32px;box-shadow:0 8px 30px rgba(0,0,0,.07);max-width:520px;width:100%;text-align:center}h1{font-size:28px;margin:0 0 8px} p{margin:0 0 20px;color:#6b7280}.links{display:flex;flex-direction:column;gap:12px}.links a{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:14px;text-decoration:none;font-weight:600;font-size:16px;transition:.2s}.home{background:#c98f4a;color:#fff}.home:hover{background:#a87436}.product{background:#fff;border:2px solid #c98f4a;color:#c98f4a}.product:hover{background:#fff8f0}.footer{margin-top:20px;font-size:13px;color:#9ca3af}</style></head>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anawood Redesign Demo – Full Flow</title>
+  <link rel="stylesheet" href="anawood-system.css" />
+  <style>
+    .demo-intro { text-align: center; padding: 72px 0 24px }
+    .demo-intro h1 { font-size: 44px; font-weight: 900; margin-bottom: 8px }
+    .demo-intro p { color: var(--muted); font-size: 17px; max-width: 540px; margin: 0 auto }
+    .demo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px }
+    .demo-card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px; text-align: center; transition: border-color .25s, box-shadow .25s, transform .25s; display: flex; flex-direction: column; align-items: center; gap: 8px }
+    .demo-card:hover { border-color: var(--brand); box-shadow: var(--shadow-hover); transform: translateY(-4px) }
+    .demo-card .icon { font-size: 40px }
+    .demo-card strong { font-size: 17px }
+    .demo-card span { font-size: 13px; color: var(--muted) }
+    .demo-card .status { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 999px; background: var(--mint); color: #059669; font-weight: 700 }
+    @media (max-width: 640px) { .demo-grid { grid-template-columns: 1fr } }
+  </style>
+</head>
 <body>
-<div class="card">
-  <h1>🎨 Anawood Redesign</h1>
-  <p>Prototype giao diện mới cho anawood.vn — bởi Neo 🤖</p>
-  <div class="links">
-    <a href="anawood-redesign-prototype.html" class="home">🏠 Trang chủ (Home Page)</a>
-    <a href="anawood-product-page.html" class="product">📦 Trang chi tiết sản phẩm (Product Page)</a>
-    <a href="anawood-cart-checkout.html" class="product">🛒 Giỏ hàng & Thanh toán</a>
-    <a href="anawood-order-confirmation.html" class="product">✅ Thank You / Xác nhận đơn hàng</a>
-  </div>
-  <div class="footer">
-    <a href="https://github.com/tuanlee101/anawood-redesign-demo" style="color:#6b7280">GitHub Repo</a> · Design concept only
-  </div>
-</div>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="logo">ANAWOOD</a>
+      <nav class="nav-menu">
+        <a href="index.html" class="active">Trang chủ</a>
+        <a href="anawood-product-page.html">Sản phẩm</a>
+        <a href="anawood-cart-checkout.html">Giỏ hàng</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container demo-intro fade-in">
+      <h1>🎨 Anawood <span class="highlight">Redesign</span></h1>
+      <p>Full e-commerce flow. Desktop-first. Theme-aware. Animation-ready.</p>
+    </div>
+
+    <div class="container" style="padding-bottom:48px">
+      <div class="demo-grid fade-in delay-1">
+        <a href="anawood-redesign-prototype.html" class="demo-card">
+          <div class="icon">🏠</div>
+          <strong>Trang chủ (Home)</strong>
+          <span>Hero, USP, best-seller, trust signals</span>
+          <span class="status">✅ Thiết kế đồng bộ</span>
+        </a>
+        <a href="anawood-product-page.html" class="demo-card">
+          <div class="icon">📦</div>
+          <strong>Trang sản phẩm</strong>
+          <span>Gallery, variant, CTA, sticky info panel</span>
+          <span class="status">✅ Desktop-first</span>
+        </a>
+        <a href="anawood-cart-checkout.html" class="demo-card">
+          <div class="icon">🛒</div>
+          <strong>Giỏ hàng & Thanh toán</strong>
+          <span>Cart items, form, COD/chuyển khoản</span>
+          <span class="status">✅ 2 cột desktop</span>
+        </a>
+        <a href="anawood-order-confirmation.html" class="demo-card">
+          <div class="icon">✅</div>
+          <strong>Xác nhận đơn hàng</strong>
+          <span>Thank You page, order progress, thông tin</span>
+          <span class="status">✅ Animation bounce</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Prototype by Neo 🤖 · Redesign concept cho <a href="https://anawood.vn">Anawood.vn</a></span>
+      <div class="footer-links">
+        <a href="anawood-redesign-prototype.html">🏠 Home</a>
+        <a href="anawood-product-page.html">📦 Product</a>
+        <a href="anawood-cart-checkout.html">🛒 Cart</a>
+        <a href="anawood-order-confirmation.html">✅ Thank You</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="anawood-system.js"></script>
 </body>
 </html>

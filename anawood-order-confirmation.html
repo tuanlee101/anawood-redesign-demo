@@ -1,7 +1,87 @@
 <!doctype html>
-<html lang="vi" data-theme="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Anawood – Thank You</title>
+<html lang="vi" data-theme="light">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Anawood – Đặt hàng thành công</title><link rel="stylesheet" href="anawood-system.css" />
 <style>
-[data-theme="light"]{--bg:#fffdf9;--text:#1f2937;--muted:#6b7280;--brand:#c98f4a;--mint:#eaf7f1;--card:#fff;--line:#eee7de}
-[data-theme="dark"]{--bg:#0f0f1a;--text:#e2e8f0;--muted:#94a3b8;--brand:#d4a05a;--mint:#1a2e2a;--card:#1a1a2e;--line:#2d2d44}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}.wrap{min-height:100vh;display:grid;place-items:center;padding:24px}.card{max-width:760px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:32px}.ok{font-size:60px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}.box{background:var(--mint);padding:14px;border-radius:12px}.btn{display:inline-block;padding:12px 16px;border-radius:12px;text-decoration:none;font-weight:700}.p{background:var(--brand);color:#fff}.o{border:2px solid var(--brand);color:var(--brand)}
-</style></head><body><div class="wrap"><div class="card"><div class="ok">🎉</div><h1>Đặt hàng thành công!</h1><p class="muted">Cảm ơn ba mẹ đã đặt hàng tại Anawood. Đội ngũ sẽ liên hệ xác nhận trong vòng 15–30 phút.</p><div class="grid"><div class="box"><strong>Mã đơn:</strong><br>#ANA-2026-0514</div><div class="box"><strong>Tổng thanh toán:</strong><br>12.200.000 ₫</div><div class="box"><strong>Giao dự kiến:</strong><br>2–5 ngày làm việc</div><div class="box"><strong>Hotline:</strong><br>0342 608 599</div></div><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn p" href="anawood-redesign-prototype.html">🏠 Về trang chủ</a><a class="btn o" href="anawood-product-page.html">🛍️ Mua thêm sản phẩm</a></div></div></div></body></html>
+.page{min-height:calc(100vh - 78px);display:flex;align-items:center;justify-content:center;padding:48px 16px}
+.ok-icon{font-size:72px;margin-bottom:20px;animation:bounceIn .6s ease}
+@keyframes bounceIn{0%{transform:scale(.3);opacity:0}50%{transform:scale(1.08)}70%{transform:scale(.96)}100%{transform:scale(1);opacity:1}}
+.ok-card{max-width:680px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:36px 40px;box-shadow:var(--shadow);text-align:center}
+.ok-card h1{font-size:30px;font-weight:900;margin-bottom:10px}
+.ok-card h1 span{color:var(--brand)}
+.ok-sub{color:var(--muted);font-size:15px;max-width:440px;margin:0 auto 24px;line-height:1.65}
+.order-info{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;text-align:left}
+.info-box{background:var(--mint);border-radius:14px;padding:14px 16px}
+.info-box strong{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.info-box span{font-weight:700;font-size:16px;color:var(--text)}
+.actions{display:flex;gap:10px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+.progress{display:flex;align-items:center;justify-content:center;gap:0;margin:28px 0 0}
+.step{flex:1;max-width:160px;text-align:center;position:relative}
+.step::after{content:'';position:absolute;top:16px;right:-50%;width:100%;height:2px;background:var(--line);z-index:0}
+.step:last-child::after{display:none}
+.step.done::after{background:var(--brand)}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 6px;font-size:13px;position:relative;z-index:1}
+.step.done .step-num{background:var(--brand)}
+.step:not(.done) .step-num{background:var(--line);color:var(--muted)}
+.step-label{font-size:11px;color:var(--muted);font-weight:600}
+.step.done .step-label{color:var(--text)}
+@media(max-width:600px){.order-info{grid-template-columns:1fr}.ok-card{padding:24px 20px}.actions{flex-direction:column}.actions .btn{width:100%}}
+</style></head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="logo">ANAWOOD</a>
+      <nav class="nav-menu">
+        <a href="index.html">Trang chủ</a>
+        <a href="anawood-product-page.html">Sản phẩm</a>
+        <a href="anawood-cart-checkout.html">Giỏ hàng</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="ok-card fade-in">
+      <div class="ok-icon">🎉</div>
+      <h1>Đặt hàng <span>thành công!</span></h1>
+      <p class="ok-sub">Cảm ơn ba mẹ đã tin chọn Anawood. Đội ngũ sẽ liên hệ xác nhận trong <strong>15–30 phút</strong> và giao hàng trong <strong>2–5 ngày</strong> làm việc.</p>
+
+      <!-- Order Progress -->
+      <div class="progress">
+        <div class="step done"><div class="step-num">✓</div><div class="step-label">Đặt hàng</div></div>
+        <div class="step done"><div class="step-num">✓</div><div class="step-label">Xác nhận</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-label">Đóng gói</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-label">Giao hàng</div></div>
+      </div>
+
+      <!-- Order Info -->
+      <div class="order-info">
+        <div class="info-box"><strong>Mã đơn hàng</strong><span>#ANA-2026-0514</span></div>
+        <div class="info-box"><strong>Tổng thanh toán</strong><span>12.200.000 ₫</span></div>
+        <div class="info-box"><strong>Phương thức</strong><span>COD – Trả tiền khi nhận</span></div>
+        <div class="info-box"><strong>Hotline hỗ trợ</strong><span>0342 608 599</span></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <a href="anawood-redesign-prototype.html" class="btn btn-primary">🏠 Về trang chủ</a>
+        <a href="anawood-product-page.html" class="btn btn-outline">🛍️ Mua thêm sản phẩm</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Anawood Thank You · Full e-commerce flow · Desktop-first by Neo 🤖</span>
+      <div class="footer-links">
+        <a href="anawood-redesign-prototype.html">🏠 Home</a>
+        <a href="anawood-product-page.html">📦 Product</a>
+        <a href="anawood-cart-checkout.html">🛒 Cart</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="anawood-system.js"></script>
+</body>
+</html>
