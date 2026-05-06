@@ -48,7 +48,7 @@
       <nav class="nav-menu">
         <a href="index.html">Trang chủ</a>
         <a href="anawood-product-page.html" class="active">Sản phẩm</a>
-        <a href="anawood-cart-checkout.html">Giỏ hàng</a>
+        <a href="anawood-cart-checkout.html" style="position:relative">Giỏ hàng <sup class="cart-badge" style="background:var(--brand);color:#fff;font-size:10px;border-radius:999px;padding:1px 6px;display:none">0</sup></a>
       </nav>
       <div class="nav-actions">
         <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
@@ -102,8 +102,8 @@
         </div>
 
         <div class="action-row">
-          <a href="anawood-cart-checkout.html" class="btn btn-primary">🛒 Thêm vào giỏ</a>
-          <a href="#" class="btn btn-outline">💬 Tư vấn Zalo</a>
+          <button class="btn btn-primary" onclick="addToCart({ id:'eb091', name:'Giường trẻ em EB091', price:'8950000', img:'https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg', meta:'Gỗ tự nhiên · 120×200' }); return false;">🛒 Thêm vào giỏ</button>
+          <a href="anawood-cart-checkout.html" class="btn btn-outline">🛍️ Xem giỏ hàng</a>
         </div>
 
         <div class="trust-row">
