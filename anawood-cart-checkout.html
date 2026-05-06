@@ -1,266 +1,35 @@
 <!doctype html>
-<html lang="vi" data-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anawood – Giỏ hàng & Thanh toán (Prototype)</title>
-  <style>
-    /* ── Theme System ── */
-    [data-theme="light"] {
-      --bg: #fffdf9; --text: #1a1a2e; --muted: #6b7280;
-      --card: #ffffff; --line: #eee7de; --mint: #eaf7f1;
-      --brand: #c98f4a; --brand-dark: #a87436; --brand-light: #f5e6d0;
-      --shadow: 0 2px 12px rgba(0,0,0,.06);
-      --cta-text: #fff;
-    }
-    [data-theme="dark"] {
-      --bg: #0f0f1a; --text: #e2e8f0; --muted: #94a3b8;
-      --card: #1a1a2e; --line: #2d2d44; --mint: #1a2e2a;
-      --brand: #d4a05a; --brand-dark: #c98f4a; --brand-light: #2d2215;
-      --shadow: 0 2px 12px rgba(0,0,0,.3);
-      --cta-text: #fff;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);transition:.3s}
-    .container{max-width:720px;margin:0 auto;padding:0 16px}
-
-    header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
-    .nav{display:flex;justify-content:space-between;align-items:center;height:60px}
-    .nav-left{display:flex;align-items:center;gap:14px}
-    .logo{font-weight:800;letter-spacing:.4px}
-    .back-link{color:var(--brand);text-decoration:none;font-size:14px}
-    .nav-right{display:flex;gap:12px;align-items:center}
-
-    /* ── Theme Toggle ── */
-    .theme-toggle{background:var(--mint);border:none;border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:.3s}
-    .theme-toggle:hover{transform:scale(1.05)}
-
-    .page-title{font-size:22px;font-weight:700;margin:24px 0 16px;display:flex;align-items:center;gap:8px}
-
-    /* ── Cart Items ── */
-    .cart-item{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;transition:.3s}
-    .cart-item img{width:80px;height:80px;border-radius:10px;object-fit:cover;flex-shrink:0}
-    .ci-body{flex:1}
-    .ci-name{font-weight:600;font-size:15px;margin-bottom:4px}
-    .ci-meta{font-size:13px;color:var(--muted);margin-bottom:6px}
-    .ci-bottom{display:flex;justify-content:space-between;align-items:center}
-    .qty{display:flex;align-items:center;gap:8px}
-    .qty button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-weight:700;color:var(--text);display:flex;align-items:center;justify-content:center}
-    .qty span{font-weight:600;min-width:20px;text-align:center}
-    .ci-price{font-weight:700;color:var(--brand)}
-    .remove{color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;margin-left:10px}
-
-    /* ── Promo ── */
-    .promo{display:flex;gap:8px;margin:16px 0}
-    .promo input{flex:1;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);font-size:14px}
-    .promo button{padding:10px 16px;border-radius:10px;border:none;background:var(--brand);color:var(--cta-text);font-weight:600;cursor:pointer;flex-shrink:0}
-
-    /* ── Summary ── */
-    .summary{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0;transition:.3s}
-    .sum-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px}
-    .sum-row.total{font-weight:700;font-size:17px;border-top:1px solid var(--line);padding-top:12px;margin-top:8px}
-    .sum-row .free{color:#059669;font-size:12px;font-weight:600}
-
-    /* ── Checkout Form ── */
-    .checkout-form{margin:20px 0}
-    .form-group{margin-bottom:12px}
-    .form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:4px;color:var(--muted)}
-    .form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);font-size:14px;transition:.3s;font-family:inherit}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-
-    /* ── Payment Options ── */
-    .payment-opt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
-    .pay-item{padding:12px;border:2px solid var(--line);border-radius:12px;text-align:center;font-size:13px;font-weight:500;cursor:pointer;background:var(--bg);transition:.2s}
-    .pay-item.active{border-color:var(--brand);background:var(--brand-light)}
-    .pay-item .icon{font-size:24px;display:block;margin-bottom:4px}
-
-    /* ── Place Order ── */
-    .place-order{width:100%;padding:16px;border:none;border-radius:14px;background:var(--brand);color:var(--cta-text);font-weight:700;font-size:17px;cursor:pointer;margin:16px 0 20px;transition:.3s}
-    .place-order:hover{background:var(--brand-dark)}
-
-    /* ── Bottom Nav ── */
-    .bottom-nav{display:flex;justify-content:space-between;padding:16px 0 40px;font-size:13px;color:var(--muted)}
-    .bottom-nav a{color:var(--brand);text-decoration:none}
-
-    section-title{font-size:18px;font-weight:700;margin:20px 0 12px;display:block}
-
-    .empty{text-align:center;padding:40px 20px;background:var(--card);border:1px solid var(--line);border-radius:14px}
-    .empty .icon{font-size:48px;margin-bottom:10px;display:block}
-    .empty p{color:var(--muted);margin:0 0 16px}
-    .empty .btn{display:inline-block;padding:10px 20px;border-radius:10px;background:var(--brand);color:var(--cta-text);text-decoration:none;font-weight:600}
-
-    footer{padding:20px 0;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
-  </style>
-</head>
-<body>
-  <header>
-    <div class="container nav">
-      <div class="nav-left">
-        <div class="logo">ANAWOOD</div>
-        <a href="index.html" class="back-link">← Quay lại</a>
-      </div>
-      <div class="nav-right">
-        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
-      </div>
-    </div>
-  </header>
-
-  <div class="container">
-    <div class="page-title">🛒 Giỏ hàng</div>
-
-    <!-- Cart Items -->
-    <div id="cartItems">
-      <div class="cart-item">
-        <img src="https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg" alt="Giường EB091">
-        <div class="ci-body">
-          <div class="ci-name">Giường trẻ em EB091</div>
-          <div class="ci-meta">Màu: Gỗ tự nhiên · Kích thước: 120x200cm</div>
-          <div class="ci-bottom">
-            <div class="qty">
-              <button onclick="changeQty(this, -1)">−</button>
-              <span>1</span>
-              <button onclick="changeQty(this, 1)">+</button>
-              <span class="remove" onclick="this.closest('.cart-item').remove();updateSummary()">Xóa</span>
-            </div>
-            <div class="ci-price">8.950.000 ₫</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="cart-item">
-        <img src="https://anawood.vn/wp-content/uploads/2026/03/z7673352958579_d7ca4d0a6573216624caa84cbf8ea87c.jpg" alt="Thang Pikler">
-        <div class="ci-body">
-          <div class="ci-name">Thang Pikler + Cầu trượt ET016</div>
-          <div class="ci-meta">Phiên bản tiêu chuẩn</div>
-          <div class="ci-bottom">
-            <div class="qty">
-              <button onclick="changeQty(this, -1)">−</button>
-              <span>1</span>
-              <button onclick="changeQty(this, 1)">+</button>
-              <span class="remove" onclick="this.closest('.cart-item').remove();updateSummary()">Xóa</span>
-            </div>
-            <div class="ci-price">3.250.000 ₫</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Promo -->
-    <div class="promo">
-      <input type="text" placeholder="Nhập mã giảm giá..." id="promoInput">
-      <button onclick="applyPromo()">Áp dụng</button>
-    </div>
-    <div id="promoMsg" style="font-size:13px;color:#059669;margin:-8px 0 12px;display:none"></div>
-
-    <!-- Summary -->
-    <div class="summary" id="summary">
-      <div class="sum-row"><span>Tạm tính</span><span id="subtotal">12.200.000 ₫</span></div>
-      <div class="sum-row"><span>Phí vận chuyển</span><span class="free">Miễn phí</span></div>
-      <div class="sum-row"><span>Giảm giá</span><span id="discount">0 ₫</span></div>
-      <div class="sum-row total"><span>Tổng cộng</span><span id="total">12.200.000 ₫</span></div>
-    </div>
-
-    <!-- Checkout Form -->
-    <section-title>📋 Thông tin giao hàng</section-title>
-    <div class="checkout-form">
-      <div class="form-row">
-        <div class="form-group"><label>Họ tên</label><input type="text" value="Nguyễn Văn A"></div>
-        <div class="form-group"><label>Số điện thoại</label><input type="tel" value="0912 345 678"></div>
-      </div>
-      <div class="form-group"><label>Email</label><input type="email" value="nguyenvana@gmail.com"></div>
-      <div class="form-group"><label>Địa chỉ</label><input type="text" value="748 Trần Hưng Đạo, Bình Mỹ, Ninh Bình"></div>
-      <div class="form-row">
-        <div class="form-group"><label>Tỉnh/Thành</label><select><option>Ninh Bình</option><option>Hà Nội</option><option>TP. HCM</option></select></div>
-        <div class="form-group"><label>Phương thức</label><select><option>Giao tận nơi</option><option>Nhận tại showroom</option></select></div>
-      </div>
-      <div class="form-group"><label>Ghi chú</label><textarea rows="2" placeholder="Thời gian giao hàng mong muốn..."></textarea></div>
-    </div>
-
-    <!-- Payment -->
-    <section-title>💳 Phương thức thanh toán</section-title>
-    <div class="payment-opt">
-      <div class="pay-item active" onclick="selectPay(this)"><span class="icon">💵</span>COD</div>
-      <div class="pay-item" onclick="selectPay(this)"><span class="icon">🏦</span>Chuyển khoản</div>
-    </div>
-
-    <button class="place-order" onclick="placeOrder()">🛒 Đặt hàng — 12.200.000 ₫</button>
-
-    <div class="bottom-nav">
-      <a href="https://tuanlee101.github.io/anawood-redesign-demo/anawood-redesign-prototype.html">🏠 Về trang chủ</a>
-      <a href="https://tuanlee101.github.io/anawood-redesign-demo/anawood-product-page.html">📦 Xem sản phẩm</a>
-    </div>
+<html lang="vi" data-theme="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Anawood – Cart/Checkout Desktop</title>
+<style>
+[data-theme="light"]{--bg:#fffdf9;--text:#1f2937;--muted:#6b7280;--brand:#c98f4a;--brand-dark:#a87436;--mint:#eaf7f1;--card:#fff;--line:#eee7de}
+[data-theme="dark"]{--bg:#0f0f1a;--text:#e2e8f0;--muted:#94a3b8;--brand:#d4a05a;--brand-dark:#c98f4a;--mint:#1a2e2a;--card:#1a1a2e;--line:#2d2d44}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)} .container{max-width:1200px;margin:0 auto;padding:0 40px}
+header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--line)} .nav{height:78px;display:flex;justify-content:space-between;align-items:center}.theme{width:40px;height:40px;border:none;border-radius:999px;background:var(--mint);cursor:pointer}
+.btn{padding:12px 16px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;font-weight:700;display:inline-block}.btn-primary{background:var(--brand);color:#fff}
+.layout{display:grid;grid-template-columns:1.35fr .9fr;gap:22px;padding:24px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.item{display:grid;grid-template-columns:92px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)} .item:last-child{border-bottom:0}
+.item img{width:92px;height:92px;object-fit:cover;border-radius:10px}.name{font-weight:700}.muted{color:var(--muted);font-size:14px}
+.qty{display:flex;align-items:center;gap:6px}.qty button{width:28px;height:28px;border:1px solid var(--line);background:transparent;border-radius:8px;color:var(--text)}
+.row{display:flex;justify-content:space-between;padding:8px 0}.total{font-size:22px;font-weight:800;color:#b45309}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.form .full{grid-column:1/-1} input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}
+.pay{display:flex;gap:10px}.pay div{flex:1;border:2px solid var(--line);border-radius:12px;padding:10px;text-align:center;cursor:pointer}.pay .active{border-color:var(--brand);background:var(--mint)}
+@media(max-width:900px){.container{padding:0 18px}.layout{grid-template-columns:1fr}.form{grid-template-columns:1fr}}
+</style></head><body>
+<header><div class="container nav"><strong>ANAWOOD</strong><div style="display:flex;gap:10px;align-items:center"><button class="theme" id="themeBtn" onclick="toggleTheme()">🌙</button><a class="btn" href="anawood-redesign-prototype.html">🏠 Trang chủ</a></div></div></header>
+<div class="container layout">
+  <div class="card"><h2>🛒 Giỏ hàng</h2>
+    <div class="item"><img src="https://anawood.vn/wp-content/uploads/2026/03/642784678_1457644833038951_1380078216724023484_n.jpg"><div><div class="name">Giường EB091</div><div class="muted">Màu gỗ · 120x200</div></div><div><div class="qty"><button>-</button><strong>1</strong><button>+</button></div><div style="font-weight:700;color:#b45309;margin-top:6px">8.950.000 ₫</div></div></div>
+    <div class="item"><img src="https://anawood.vn/wp-content/uploads/2026/03/z7673352958579_d7ca4d0a6573216624caa84cbf8ea87c.jpg"><div><div class="name">Thang Pikler</div><div class="muted">Bản chuẩn</div></div><div><div class="qty"><button>-</button><strong>1</strong><button>+</button></div><div style="font-weight:700;color:#b45309;margin-top:6px">3.250.000 ₫</div></div></div>
   </div>
-
-  <footer>
-    <div class="container">Prototype Cart/Checkout by Neo 🤖 · Redesign concept cho Anawood · Mobile-first</div>
-  </footer>
-
-  <script>
-    /* ── Theme ── */
-    function toggleTheme(){
-      const html = document.documentElement;
-      const current = html.getAttribute('data-theme');
-      const next = current === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', next);
-      document.getElementById('themeBtn').textContent = next === 'light' ? '🌙' : '☀️';
-      localStorage.setItem('anawood-theme', next);
-    }
-    (function(){
-      const saved = localStorage.getItem('anawood-theme');
-      if(saved) document.documentElement.setAttribute('data-theme', saved);
-    })();
-
-    /* ── Cart Logic ── */
-    function changeQty(btn, delta){
-      const span = btn.parentElement.querySelector('span');
-      let qty = parseInt(span.textContent) + delta;
-      if(qty < 1) return;
-      span.textContent = qty;
-      updateSummary();
-    }
-
-    function applyPromo(){
-      const input = document.getElementById('promoInput');
-      const msg = document.getElementById('promoMsg');
-      if(input.value.trim().toLowerCase() === 'anawood50'){
-        msg.textContent = '✅ Mã giảm giá hợp lệ — giảm 5% đơn hàng!';
-        msg.style.display = 'block';
-        updateSummary(true);
-      } else {
-        msg.textContent = '❌ Mã không hợp lệ. Thử "ANAWOOD50"';
-        msg.style.display = 'block';
-        updateSummary(false);
-      }
-    }
-
-    function updateSummary(hasPromo){
-      const items = document.querySelectorAll('.cart-item');
-      let subtotal = 0;
-      items.forEach(item => {
-        const priceText = item.querySelector('.ci-price').textContent.replace(/[₫.,\s]/g,'');
-        const qty = parseInt(item.querySelector('.qty span').textContent);
-        const price = parseFloat(priceText);
-        if(!isNaN(price)) subtotal += price * qty;
-      });
-      const fmt = n => n.toLocaleString('vi-VN') + ' ₫';
-      document.getElementById('subtotal').textContent = fmt(subtotal);
-      let discount = 0;
-      if(hasPromo === true) discount = subtotal * 0.05;
-      else if(hasPromo === false) discount = 0;
-      document.getElementById('discount').textContent = hasPromo === true ? fmt(discount) : '0 ₫';
-      const total = subtotal - discount;
-      document.getElementById('total').textContent = fmt(total);
-      document.querySelector('.place-order').textContent = `🛒 Đặt hàng — ${fmt(total)}`;
-    }
-
-    function selectPay(el) {
-      document.querySelectorAll('.pay-item').forEach(p => p.classList.remove('active'));
-      el.classList.add('active');
-    }
-
-    function placeOrder() {
-      alert('✅ Đơn hàng mẫu đã được tạo (prototype).\n\nTrong thực tế: chuyển đến trang xác nhận + gọi API.');
-    }
-  </script>
-</body>
-</html>
+  <div class="card"><h3>📋 Thanh toán</h3>
+    <div class="row"><span>Tạm tính</span><strong>12.200.000 ₫</strong></div><div class="row"><span>Phí ship</span><span style="color:#059669">Miễn phí</span></div><div class="row"><span>Giảm giá</span><span>0 ₫</span></div><hr style="border:none;border-top:1px solid var(--line)"><div class="row"><span>Tổng cộng</span><span class="total">12.200.000 ₫</span></div>
+    <div class="form" style="margin-top:12px">
+      <input placeholder="Họ tên"><input placeholder="Số điện thoại"><input class="full" placeholder="Email"><input class="full" placeholder="Địa chỉ giao hàng"><select><option>Hà Nội</option><option>TP.HCM</option></select><select><option>Giao tận nơi</option><option>Nhận tại showroom</option></select><textarea class="full" rows="2" placeholder="Ghi chú"></textarea>
+    </div>
+    <div class="pay" style="margin-top:12px"><div class="active">💵 COD</div><div>🏦 Chuyển khoản</div></div>
+    <a class="btn btn-primary" href="anawood-order-confirmation.html" style="width:100%;margin-top:14px;text-align:center">✅ Đặt hàng</a>
+  </div>
+</div>
+<script>function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('anawood-theme',n);themeBtn.textContent=n==='light'?'🌙':'☀️'}(()=>{const s=localStorage.getItem('anawood-theme')||'light';document.documentElement.setAttribute('data-theme',s);themeBtn.textContent=s==='light'?'🌙':'☀️'})()</script>
+</body></html>
