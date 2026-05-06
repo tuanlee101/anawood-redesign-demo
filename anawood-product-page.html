@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anawood – Giường trẻ em EB091 (Redesign)</title>
   <style>
     /* ── Reset & Variables ── */
-    :root{
+    [data-theme="light"]{
       --brand:#c98f4a;
       --brand-dark:#a87436;
       --bg:#fffdf9;
@@ -14,6 +14,19 @@
       --muted:#6b7280;
       --line:#eee7de;
       --mint:#eaf7f1;
+      --card:#ffffff;
+      --radius:14px;
+      --max-w:1100px;
+    }
+    [data-theme="dark"]{
+      --brand:#d4a05a;
+      --brand-dark:#c98f4a;
+      --bg:#0f0f1a;
+      --text:#e2e8f0;
+      --muted:#94a3b8;
+      --line:#2d2d44;
+      --mint:#1a2e2a;
+      --card:#1a1a2e;
       --radius:14px;
       --max-w:1100px;
     }
@@ -112,6 +125,7 @@
       <div class="logo">ANAWOOD</div>
       <div class="nav-right">
         <a href="#">Gọi tư vấn</a>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme" style="background:var(--mint);border:none;border-radius:999px;width:36px;height:36px;cursor:pointer;font-size:18px">🌙</button>
         <span>🔍</span>
         <span>🛒</span>
       </div>
@@ -232,6 +246,21 @@
     <div class="container">Prototype Product Page by Neo 🤖 · Redesign concept cho Anawood · Mobile-first</div>
   </footer>
 
+  <script>
+    function toggleTheme(){
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      document.getElementById('themeBtn').textContent = next === 'light' ? '🌙' : '☀️';
+      localStorage.setItem('anawood-theme', next);
+    }
+    (function(){
+      const saved = localStorage.getItem('anawood-theme');
+      if(saved) document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('themeBtn').textContent = document.documentElement.getAttribute('data-theme') === 'light' ? '🌙' : '☀️';
+    })();
+  </script>
   <script>
     function changeImg(el) {
       document.getElementById('mainImg').src = el.src;

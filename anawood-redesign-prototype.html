@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anawood Redesign Prototype</title>
   <style>
-    :root{
+    [data-theme="light"]{
       --bg:#fffdf9;
       --text:#1f2937;
       --muted:#6b7280;
@@ -16,6 +16,17 @@
       --line:#eee7de;
       --radius:18px;
     }
+    [data-theme="dark"]{
+      --bg:#0f0f1a;
+      --text:#e2e8f0;
+      --muted:#94a3b8;
+      --brand:#d4a05a;
+      --brand-dark:#c98f4a;
+      --mint:#1a2e2a;
+      --card:#1a1a2e;
+      --line:#2d2d44;
+      --radius:18px;
+    }
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
     .container{max-width:1120px;margin:0 auto;padding:0 20px}
@@ -23,6 +34,7 @@
     .nav{display:flex;justify-content:space-between;align-items:center;height:72px}
     .logo{font-weight:800;letter-spacing:.5px}
     .menu{display:flex;gap:20px;color:var(--muted);font-size:14px}
+    .theme-toggle{background:var(--mint);border:none;border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center}
     .btn{display:inline-block;background:var(--brand);color:#fff;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:600}
     .btn:hover{background:var(--brand-dark)}
 
@@ -72,7 +84,10 @@
       <nav class="menu">
         <span>Sản phẩm</span><span>Phòng mẫu</span><span>Gỗ an toàn</span><span>Blog</span>
       </nav>
-      <a class="btn" href="#">Tư vấn ngay</a>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">🌙</button>
+        <a class="btn" href="#">Tư vấn ngay</a>
+      </div>
     </div>
   </header>
 
@@ -133,5 +148,21 @@
   <footer>
     <div class="container">Prototype by Neo 🤖 · chỉ để demo concept UI/UX, chưa tích hợp WordPress/WooCommerce.</div>
   </footer>
+
+  <script>
+    function toggleTheme(){
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      document.getElementById('themeBtn').textContent = next === 'light' ? '🌙' : '☀️';
+      localStorage.setItem('anawood-theme', next);
+    }
+    (function(){
+      const saved = localStorage.getItem('anawood-theme');
+      if(saved) document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('themeBtn').textContent = document.documentElement.getAttribute('data-theme') === 'light' ? '🌙' : '☀️';
+    })();
+  </script>
 </body>
 </html>
