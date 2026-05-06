@@ -1,0 +1,16 @@
+/*
+Theme Name: Anawood
+Theme URI: https://github.com/tuanlee101/anawood-redesign-demo
+Author: Anawood Team
+Author URI: https://anawood.vn
+Description: Theme redesign cho Anawood.vn - Nội thất trẻ em Montessori. Desktop-first, WooCommerce-ready, Dark/Light mode.
+Version: 1.0.0
+Requires PHP: 8.0
+Requires at least: 6.0
+Tested up to: 6.7
+License: GPL v2 or later
+Text Domain: anawood
+*/
+
+/* ── Design System được load trong assets/css/anawood-system.css ── */
+/* File này giữ theme header để WordPress nhận diện */
